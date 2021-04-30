@@ -1,25 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import { useMessage } from 'context/mqtt'
+import image from 'image/Wood.png'
+import './App.css'
 
 function App() {
+  const { messageState, client } = useMessage()
+  const isInstalled = messageState?.second === 'next'
+  const onClickInstall = () => {
+    client.publish('first', 'Installing', 0, false)
+  }
+  const resetTopic = () => {
+    client.publish('second', 'reset', 0, false)
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className='App'>
+      <header className='App-header'>
+        <div className='asset-container'>
+          <img
+            src={image}
+            className={`asset ${isInstalled ? 'opacity-100' : 'opacity-50'}`}
+            alt='logo'
+          />
+          <img
+            src={image}
+            className={`asset ${isInstalled ? 'opacity-50' : 'opacity-25'}`}
+            alt='logo'
+          />
+        </div>
+        <div className='asset-container'>
+          <button
+            className={`btn ${isInstalled && 'btn-disabled'}`}
+            disable={isInstalled}
+            onClick={onClickInstall}
+          >
+            Install
+          </button>
+          {isInstalled && (
+            <button className='btn' onClick={resetTopic}>
+              Uninstall
+            </button>
+          )}
+        </div>
       </header>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

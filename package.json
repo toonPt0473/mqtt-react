@@ -1,18 +1,29 @@
 {
-  "name": "mqtt",
+  "name": "butterfly22x-interview",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "aedes": "^0.46.0",
+    "http": "0.0.1-security",
+    "immer": "^9.0.2",
+    "lodash": "^4.17.21",
+    "mqtt": "^4.2.6",
+    "net": "^1.0.2",
+    "paho-mqtt": "^1.1.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
-    "web-vitals": "^1.0.1"
+    "web-vitals": "^1.0.1",
+    "websocket-stream": "^5.5.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "pm2 start broker.js --name 'mqtt-broker' && react-scripts start",
+    "stop": "pm2 stop mqtt-broker",
+    "start-front": "react-scripts start",
+    "start-broker": "node broker.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -34,5 +45,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "pm2": "^4.5.6"
   }
 }
